@@ -1,0 +1,23 @@
+server:
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: exchange-api
+  datasource:
+    url: jdbc:h2:mem:exchange-rate
+    username: sa
+    password: root
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+app:
+  secret:
+    key: AC16FD4F6271A897B5335DCB92B8947F94BC7C951F17D38DDD26DDB612
+  client:
+    exchange-url: https://open.er-api.com

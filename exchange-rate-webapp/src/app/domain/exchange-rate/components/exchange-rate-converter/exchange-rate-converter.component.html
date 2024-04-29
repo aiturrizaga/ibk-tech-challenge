@@ -1,0 +1,61 @@
+<div class="mx-auto px-8 my-10">
+  <div class="grid grid-cols-3 gap-4">
+    @if (baseCurrency && targetCurrency) {
+      <div class="max-w-sm rounded-2xl border border-gray-200 -m-8 md:m-0 overflow-hidden flex-grow flex flex-col">
+        <img (click)="selectCurrency('base', baseCurrency, targetCurrency)"
+             class="w-16 h-16 md:w-24 md:h-24 mx-auto rounded-full border-2 border-gray-600 object-cover object-center my-8 cursor-pointer"
+             [src]="baseCurrency.flagUrl" [alt]="baseCurrency.country">
+        <div class="flex-grow px-6 py-4 text-center">
+          <span class="text-sm text-gray-700 font-semibold">{{ baseCurrency.code | uppercase }}</span>
+          <div class="font-bold text-xs sm:text-sm md:text-lg mb-2">{{ baseCurrency.name | uppercase }}</div>
+        </div>
+        <div class="px-6 pt-4 pb-2 mb-2">
+          <p class="text-center text-sm text-gray-800 font-semibold">
+            {{ baseMessage }}
+          </p>
+          <div class="relative mt-2 rounded-md shadow-sm">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span class="text-gray-500 sm:text-sm">{{ baseCurrency.symbol }}</span>
+            </div>
+            <input type="number" [formControl]="baseAmount" appOnlyNumber appSelectOnFocus
+                   class="block w-full rounded-md border-0 py-1.5 pl-7 pr-0 md:pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                   placeholder="0.00">
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-sm rounded-2xl overflow-hidden flex justify-center items-center">
+        <button type="button" class="text-neutral-900" (click)="swapCurrencies()">
+          <svg class="w-10 h-10 md:w-16 md:h-16" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+               viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="max-w-sm rounded-2xl border border-gray-200 -m-8 md:m-0 overflow-hidden flex-grow flex flex-col">
+        <img (click)="selectCurrency('target', targetCurrency, baseCurrency)"
+             class="w-16 h-16 md:w-24 md:h-24 mx-auto rounded-full border-2 border-gray-600 object-cover object-center my-8 cursor-pointer"
+             [src]="targetCurrency.flagUrl" [alt]="targetCurrency.country">
+        <div class="flex-grow px-6 py-4 text-center">
+          <span class="text-sm text-gray-700 font-semibold">{{ targetCurrency.code | uppercase }}</span>
+          <div class="font-bold text-xs sm:text-sm md:text-lg mb-2">{{ targetCurrency.name | uppercase }}</div>
+        </div>
+        <div class="px-6 pt-4 pb-2 mb-2">
+          <p class="text-center text-sm text-gray-800 font-semibold">
+            {{ targetMessage }}
+          </p>
+          <div class="relative mt-2 rounded-md shadow-sm">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span class="text-gray-500 sm:text-sm">{{ targetCurrency.symbol }}</span>
+            </div>
+            <input type="number" [formControl]="targetAmount" appOnlyNumber appSelectOnFocus
+                   class="block w-full rounded-md border-0 py-1.5 pl-7 pr-0 md:pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                   placeholder="0.00">
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

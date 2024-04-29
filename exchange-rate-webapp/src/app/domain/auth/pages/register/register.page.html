@@ -1,0 +1,74 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+      Crea tu cuenta
+    </h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form [formGroup]="registerForm" (ngSubmit)="register()"
+          class="space-y-6 md:space-y-8">
+      <div>
+        <label for="name" [ngClass]="[hasError('name') ? 'text-red-700' : 'text-gray-900']"
+               class="block mb-2 text-sm font-medium">Nombres</label>
+        <input type="text" id="name" formControlName="name"
+               [ngClass]="[hasError('name') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700' : 'bg-gray-50 border border-gray-300 text-gray-900']"
+               class="sm:text-sm rounded-lg block w-full p-2.5">
+        @if (hasError('name')) {
+          @if (form['name'].hasError('required')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Debe ingresar su nombre</p>
+          }
+        }
+      </div>
+      <div>
+        <label for="name" [ngClass]="[hasError('lastname') ? 'text-red-700' : 'text-gray-900']"
+               class="block mb-2 text-sm font-medium">Apellidos</label>
+        <input type="text" id="lastname" formControlName="lastname"
+               [ngClass]="[hasError('lastname') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700' : 'bg-gray-50 border border-gray-300 text-gray-900']"
+               class="sm:text-sm rounded-lg block w-full p-2.5">
+        @if (hasError('lastname')) {
+          @if (form['lastname'].hasError('required')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Debe ingresar sus apellidos</p>
+          }
+        }
+      </div>
+      <div>
+        <label for="email" [ngClass]="[hasError('username') ? 'text-red-700' : 'text-gray-900']"
+               class="block mb-2 text-sm font-medium">Email</label>
+        <input type="email" id="email" formControlName="username"
+               [ngClass]="[hasError('username') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700' : 'bg-gray-50 border border-gray-300 text-gray-900']"
+               class="sm:text-sm rounded-lg block w-full p-2.5">
+        @if (hasError('username')) {
+          @if (form['username'].hasError('required')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Debe ingresar su email</p>
+          } @else if (form['username'].hasError('email')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Ingrese un email valido</p>
+          }
+        }
+      </div>
+      <div>
+        <label for="password" [ngClass]="[hasError('password') ? 'text-red-700' : 'text-gray-900']"
+               class="block mb-2 text-sm font-medium">Contraseña</label>
+        <input type="password" id="password" formControlName="password"
+               [ngClass]="[hasError('password') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700' : 'bg-gray-50 border border-gray-300 text-gray-900']"
+               class="sm:text-sm rounded-lg block w-full p-2.5">
+        @if (hasError('password')) {
+          @if (form['password'].hasError('required')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Debe ingresar su contraseña</p>
+          } @else if (form['password'].hasError('minlength')) {
+            <p class="mt-2 text-sm text-red-600"><span class="font-medium">Oops!</span> Su contraseña debe ser de mínimo 4 caracteres</p>
+          }
+        }
+      </div>
+      <button type="submit"
+              class="w-full text-white bg-blue-700 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">
+        Crear mi cuenta
+      </button>
+    </form>
+
+    <p class="mt-10 text-center text-lg sm:text-base text-gray-500">
+      ¿Ya tienes una cuenta?
+      <a routerLink="../login" class="font-semibold leading-6 text-blue-700 hover:text-blue-600">Inicia sesión</a>
+    </p>
+  </div>
+</div>

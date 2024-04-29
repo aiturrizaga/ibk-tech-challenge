@@ -1,0 +1,32 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@ibk/*": [
+        "app/*"
+      ],
+      "@ibk/env/*": [
+        "environments/*"
+      ],
+      "@ibk/shared/*": [
+        "app/shared/*"
+      ],
+      "@ibk/core/*": [
+        "app/core/*"
+      ],
+      "@ibk/layout/*": [
+        "app/layout/*"
+      ]
+    },
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

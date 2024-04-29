@@ -1,0 +1,50 @@
+<div class="mx-auto px-0 md:px-8 my-10">
+  <div class="relative overflow-x-auto border border-gray-200 sm:rounded-lg">
+    @if (exchangeRateService.conversions && exchangeRateService.conversions.length) {
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Origen
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Tipo de cambio
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Total
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (conversion of exchangeRateService.conversions; track conversion.id) {
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                {{ conversion.baseCurrency }} {{ conversion.amountConvert | number:'1.2-5' }}
+              </th>
+              <td class="px-6 py-4">
+                {{ conversion.conversionRate }}
+              </td>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                {{ conversion.targetCurrency }} {{ conversion.conversionResult | number:'1.2-5' }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <div class="flex flex-col justify-center items-center gap-4 m-20">
+        <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+             stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"/>
+        </svg>
+
+        <p class="text-lg text-center">No se encontraron registros de operaciones recientes.</p>
+        <a [routerLink]="['/exchange-rate','converter']"
+           class="cursor-pointer rounded bg-neutral-950 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-neutral-800">
+          ¡Vamos a cambiar!
+        </a>
+      </div>
+    }
+  </div>
+</div>
