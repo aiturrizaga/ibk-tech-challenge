@@ -7,7 +7,7 @@ export interface Currency {
 }
 
 export interface CurrencySelect {
-  type: 'base' | 'target';
+  dialogTitle?: string;
   currentCurrency?: Currency;
   excludeCurrency?: Currency;
 }

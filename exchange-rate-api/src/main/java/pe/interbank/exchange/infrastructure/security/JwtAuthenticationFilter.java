@@ -1,5 +1,6 @@
 package pe.interbank.exchange.infrastructure.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,34 +28,47 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String token = getTokenFromRequest(request);
-        final String username;
 
         if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        username = jwtUtil.getUserNameFromToken(token);
+        try {
+            processAuthentication(token, request);
+        } catch (ExpiredJwtException ex) {
+            handleExpiredJwtException(response);
+            return;
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    private void processAuthentication(String token, HttpServletRequest request) {
+        String username = jwtUtil.getUserNameFromToken(token);
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtUtil.isTokenValid(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                setAuthentication(userDetails, request);
             }
         }
+    }
 
-        filterChain.doFilter(request, response);
-
+    private void setAuthentication(UserDetails userDetails, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7);
-        }
-        return null;
+        return StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ") ? authHeader.substring(7) : null;
+    }
+
+    private void handleExpiredJwtException(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 
 }

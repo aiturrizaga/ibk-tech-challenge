@@ -1,5 +1,6 @@
 package pe.interbank.exchange.application.rest.error;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@RestControllerAdvice
+@ControllerAdvice
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -54,7 +56,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(BusinessException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> handleBusinessException(BusinessException ex, WebRequest request) {
         log.error("[BUSINESS_EXCEPTION] Error message: {}", ex.getMessage());
         ExceptionResponse error = ExceptionResponse.builder()
                 .message(ex.getMessage())
