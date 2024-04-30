@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NgOptimizedImage, UpperCasePipe } from "@angular/common";
+import { UpperCasePipe } from "@angular/common";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { Dialog } from "@angular/cdk/dialog";
 import { debounceTime, Subject, takeUntil } from "rxjs";
@@ -10,7 +10,7 @@ import { CurrencySelectDlgComponent } from "@ibk/domain/exchange-rate/components
 @Component({
   selector: 'ibk-currency-card',
   standalone: true,
-  imports: [ReactiveFormsModule, OnlyNumberDirective, SelectOnFocusDirective, UpperCasePipe, NgOptimizedImage],
+  imports: [ReactiveFormsModule, OnlyNumberDirective, SelectOnFocusDirective, UpperCasePipe],
   templateUrl: './currency-card.component.html',
   styles: `
     :host {

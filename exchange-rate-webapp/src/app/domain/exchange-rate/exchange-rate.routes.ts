@@ -3,11 +3,11 @@ import { Routes } from "@angular/router";
 export const EXCHANGE_RATE_ROUTES: Routes = [
   {
     path: 'converter',
-    loadComponent: () => import('./components/exchange-rate-converter/exchange-rate-converter.component').then(c => c.ExchangeRateConverterComponent)
+    loadComponent: () => import('./pages/exchange-rate-converter/exchange-rate-converter.page').then(c => c.ExchangeRateConverterPage)
   },
   {
     path: 'history',
-    loadComponent: () => import('./components/exchange-rate-history/exchange-rate-history.component').then(c => c.ExchangeRateHistoryComponent)
+    loadComponent: () => import('./pages/exchange-rate-history/exchange-rate-history.page').then(c => c.ExchangeRateHistoryPage)
   },
   {
     path: '',

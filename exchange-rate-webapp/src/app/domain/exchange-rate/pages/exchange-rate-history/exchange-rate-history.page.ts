@@ -4,13 +4,13 @@ import { DecimalPipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'ibk-exchange-rate-history',
+  selector: 'ibk-exchange-rate-history-page',
   standalone: true,
   imports: [DecimalPipe, RouterLink],
-  templateUrl: './exchange-rate-history.component.html',
+  templateUrl: './exchange-rate-history.page.html',
   styles: ``
 })
-export class ExchangeRateHistoryComponent implements OnInit {
+export class ExchangeRateHistoryPage implements OnInit {
 
   constructor(public exchangeRateService: ExchangeRateService) {
   }

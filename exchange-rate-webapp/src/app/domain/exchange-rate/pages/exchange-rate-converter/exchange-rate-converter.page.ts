@@ -9,12 +9,12 @@ import { OnlyNumberDirective, SelectOnFocusDirective } from "@ibk/core/directive
 import { CurrencyCardComponent } from "@ibk/domain/exchange-rate/components";
 
 @Component({
-  selector: 'ibk-exchange-rate-converter',
+  selector: 'ibk-exchange-rate-converter-page',
   standalone: true,
   imports: [DialogModule, UpperCasePipe, ReactiveFormsModule, OnlyNumberDirective, SelectOnFocusDirective, CurrencyCardComponent],
-  templateUrl: './exchange-rate-converter.component.html'
+  templateUrl: './exchange-rate-converter.page.html'
 })
-export class ExchangeRateConverterComponent implements OnInit, OnDestroy {
+export class ExchangeRateConverterPage implements OnInit, OnDestroy {
 
   baseCurrency!: Currency;
   targetCurrency!: Currency;
